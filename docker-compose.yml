@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+
+  db_mysql:
+    container_name: "db_mysql"
+    build: 
+      context: ./database
+      dockerfile: docker/Dockerfile
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: golang
+      MYSQL_ROOT_PASSWORD: goroot 
+      MYSQL_USER: goroot
+      MYSQL_PASSWORD: goroot
+
+volumes:
+  dbdata:
+    driver: local
