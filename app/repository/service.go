@@ -7,5 +7,5 @@ type ArticleRepository interface {
 	Get(id int64) (model.Article, error)
 	Create(a model.Article) (model.Article, error)
 	Update(a model.Article) (model.Article, error)
-	Delete(a model.Article) (bool, error)
+	Delete(a model.Article) error
 }

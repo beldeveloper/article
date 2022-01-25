@@ -7,8 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var articles []model.Article
-
 type ArticleRepo struct {
 	db *gorm.DB
 }
@@ -20,6 +18,7 @@ func NewArticleRepo(db *gorm.DB) *ArticleRepo {
 }
 
 func (r *ArticleRepo) GetAll(offset int, limit int) ([]model.Article, error) {
+	var articles []model.Article
 	err := r.db.Limit(limit).Offset(offset).Find(&articles).Error
 	return articles, err
 }
@@ -35,23 +34,16 @@ func (r *ArticleRepo) Create(a model.Article) (model.Article, error) {
 	return a, err
 }
 
-func (r *ArticleRepo) Update(a model.Article) (model.Article, error) {	
+func (r *ArticleRepo) Update(a model.Article) (model.Article, error) {
 	if err := r.db.First(&a).Error; err != nil {
 		return a, err
 	}
 
-	err := r.db.Model(&a).Updates(&a).Error	
+	err := r.db.Model(&a).Updates(&a).Error
 	fmt.Println(err)
 	return a, err
 }
 
-func (r *ArticleRepo) Delete(a model.Article) (bool, error) {
-	err := r.db.Delete(&a).Error
-	result := true
-
-	if (err != nil) {
-		result = false
-	}
-
-	return result, err
+func (r *ArticleRepo) Delete(a model.Article) error {
+	return r.db.Delete(&a).Error
 }

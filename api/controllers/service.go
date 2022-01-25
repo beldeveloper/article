@@ -1,11 +1,13 @@
 package controller
 
-import pb "github.com/AndyMile/articles/app/proto"
+import (
+	model "github.com/AndyMile/articles/app/models"
+)
 
 type ArticleApiController interface {
-	GetAll(page int64) (*pb.GetAllArticlesResponse, error)
-	Get(articelId int64) (*pb.GetArticleResponse, error)
-	Create(a *pb.ArticleItem) (*pb.CreateArticleResponse, error)
-	Update(a *pb.ArticleItem) (*pb.UpdateArticleResponse, error)
-	Delete(a *pb.ArticleItem) (*pb.DeleteArticleResponse, error)
+	GetAll(page int64) ([]model.Article, error)
+	Get(articleID int64) (model.Article, error)
+	Create(a model.Article) (model.Article, error)
+	Update(a model.Article) (model.Article, error)
+	Delete(a model.Article) error
 }
