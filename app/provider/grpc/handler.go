@@ -11,7 +11,7 @@ import (
 )
 
 type Handler struct {
-	as *service.ArticleService
+	as service.Service
 	pb.UnimplementedArticleServer
 }
 
